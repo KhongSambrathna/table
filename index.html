@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Table</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Taprom&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="https://material-table.com/assets/logo.svg" type="image/x-icon">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        tabel, tr, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        table { margin: auto;}
+        td {
+            width: 200px;
+            height: 30px;
+            text-align: center;
+        }
+        #main{
+            color: blue;
+            font-size: 25px;
+            font-family: 'Taprom', cursive;
+        }
+        #incorrect {
+            color: red;
+            font-size: 25px;
+            font-family: 'Taprom', cursive;
+        }
+    </style>
+</head>
+<body>
+    <div id="incorrect"></div>
+    <div id="main"></div>
+    <table id="tab"></table>
+    <script>
+        var rows = prompt("Input number of rows : ", "");
+        var cols = prompt("Input number of columns : ", "");
+        //បម្លែងអក្សរទៅជាលេខ
+        var row = Number(rows);
+        var col = Number(cols);
+        //ឆែកលក្ខណ្ឌមើលថាវាជាលេខឫអត់
+        if(isNaN(row) || isNaN(col)){
+            document.getElementById("incorrect").innerHTML = "Warning! ជួរដេក ឫ ជួរឈរមិនអាចបញ្ជូលតម្លៃជាអក្សរបានទេ!";
+        } else {
+            if(row<1 || col<1){
+                document.getElementById("incorrect").innerHTML = "Warning! ជួរដេក ឫ ជួរឈរមិនអាចបញ្ជូលតម្លៃតូចជាង 0 បានទេ!";
+            } else {
+                //បង្ហាញសារនៅខាងលើតារាង
+                document.getElementById("main").innerHTML = "អ្នកបានបង្កើតតារាងជាមួយកូល័រកូដ Random ដែលមានជួរដេកចំនួន " + rows + " និងជួរឈរចំនួន " + cols ;
+                //បង្កើតតារាងជួរដេកនិងជួរឈរ
+                var total_tb = "", td_count;
+                for(var i=0; i<row; i++){
+                    var tb_row = "", tb_col = "";
+                    for(var j=0; j<col; j++){
+                        tb_col += "<td>TD<td>";
+                            td_count++;
+                    }
+                    tb_col = "<tr>" + tb_col + "</tr>";
+                    total_tb += tb_col;
+                    document.getElementById("tab").innerHTML = total_tb;  
+                }
+                //ដើម្បីលុបជួរឈរដែលលើស ក្នុងមួយជួរៗនៃជួរដេក
+                for(var i=0; i<row; i++){
+                    for(var j=1; j<=col; j++){
+                        document.getElementsByTagName("tr")[i].children[j].remove();
+                    }
+                }
+                //ដើម្បីដាក់ពណ៍ទៅអោយ Cell នីមួយៗ
+                var u=0;
+                for(var i=0; i<row; i++){
+                    for(var j=1; j<=col; j++){
+                        const randomColor = Math.floor(Math.random()*16777215).toString(16);
+                        document.getElementsByTagName("td")[u].style.backgroundColor = "#" + randomColor;
+                        document.getElementsByTagName("td")[u].innerHTML = "#" + randomColor;
+                        u++;
+                    }
+                }
+
+            }
+        }
+    </script>
+</body>
+</html>
